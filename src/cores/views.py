@@ -7,5 +7,9 @@ def home(request):
     return render(request, 'cores/pages/home.html', context= {
         })
 
+def cadastro(request):
+    return render(request, 'cores/pages/cadastro.html', context= {
+        })
+
 
 
