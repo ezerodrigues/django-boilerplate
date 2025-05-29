@@ -1,184 +1,144 @@
 # Django Boilerplate com Poetry e Estrutura `/src`
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![Django](https://img.shields.io/badge/Django-4.2%2B-green)
-![Poetry](https://img.shields.io/badge/Poetry-1.5%2B-purple)
-![Licença](https://img.shields.io/badge/Licença-MIT-yellow)
+[![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python&logoColor=white)](https://www.python.org/) [![Django](https://img.shields.io/badge/Django-5.x-green?logo=django&logoColor=white)](https://www.djangoproject.com/) [![Poetry](https://img.shields.io/badge/Poetry-1.8+-purple?logo=poetry&logoColor=white)](https://python-poetry.org/) [![Licença](https://img.shields.io/badge/Licença-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)
 
-Este repositório é um template profissional para iniciar projetos Django já configurados com o gerenciador de dependências Poetry, estrutura de código fonte dentro da pasta `/src`, configurações para VS Code, variáveis de ambiente e boas práticas de desenvolvimento. O objetivo deste boilerplate é proporcionar um ponto de partida sólido para seus projetos Django, economizando tempo de configuração inicial e garantindo que você comece com uma estrutura organizada e seguindo as melhores práticas da comunidade.
+Este repositório fornece um template (boilerplate) para iniciar projetos Django de forma rápida e organizada, utilizando o gerenciador de dependências Poetry e adotando a estrutura de código fonte dentro da pasta `/src`.
 
-## 📋 Descrição do Projeto
+**Objetivo:** Acelerar o início de novos projetos Django, oferecendo uma base configurada com boas práticas, economizando tempo de setup inicial e garantindo uma estrutura consistente.
 
-Este boilerplate foi cuidadosamente estruturado para oferecer uma base robusta para seus projetos Django. A estrutura `/src` foi escolhida para evitar imports acidentais e facilitar o processo de deploy, mantendo uma clara separação entre o código da aplicação e arquivos de configuração do projeto. O Poetry foi integrado como gerenciador de dependências para garantir ambientes virtuais consistentes e reproduzíveis, facilitando o controle preciso das versões de pacotes utilizados no projeto.
+## ✨ Principais Características
 
-O template inclui um app core já configurado com uma view de exemplo (Hello World) para que você possa verificar rapidamente se tudo está funcionando corretamente. Além disso, o projeto vem com configurações prontas para o VS Code, permitindo debug eficiente diretamente do editor. A estrutura de variáveis de ambiente também está implementada, seguindo as melhores práticas de segurança para manter informações sensíveis fora do controle de versão.
+*   **Estrutura `/src`:** Organiza o código fonte do projeto, separando-o de arquivos de configuração, o que melhora a organização e facilita o deploy.
+*   **Poetry:** Gerenciamento de dependências moderno e determinístico, garantindo ambientes virtuais consistentes.
+*   **Configuração Django Básica:** Inclui configurações essenciais no `settings.py` e estrutura de URLs inicial.
+*   **App `core`:** Um aplicativo inicial (`core`) já criado e configurado, com uma view e template de exemplo (`home.html`) para rápida verificação.
+*   **Templates e Estáticos:** Estrutura básica para templates globais (`base_templates`) e arquivos estáticos (`base_static`, `core/static`).
+*   **Variáveis de Ambiente:** Utiliza `python-dotenv` (implícito pelo Poetry) para carregar configurações de um arquivo `.env` (exemplo `.env.example` fornecido).
+*   **Configuração VS Code:** Inclui configurações básicas para debug no VS Code (`.vscode/launch.json`).
+*   **.gitignore:** Configurado para Python, Django e VS Code.
 
 ## 🚀 Como Usar Este Template
 
-Para começar a utilizar este template em seus projetos, siga as instruções detalhadas abaixo. O processo é simples e rápido, permitindo que você tenha um ambiente Django funcional em poucos minutos.
+Siga os passos abaixo para iniciar seu projeto a partir deste boilerplate:
 
-### Clonando o Repositório
+1.  **Clone o Repositório:**
 
-O primeiro passo é clonar este repositório para sua máquina local. Abra seu terminal e execute o seguinte comando:
+    ```bash
+    git clone https://github.com/ezerodrigues/django-boilerplate.git
+    cd django-boilerplate
+    ```
 
-```bash
-git clone git@github.com:SEU_USUARIO/django-boilerplate.git
-cd django-boilerplate
-```
+2.  **Instale as Dependências com Poetry:**
+    (Certifique-se de ter o [Poetry](https://python-poetry.org/docs/#installation) instalado)
 
-Substitua `SEU_USUARIO` pelo seu nome de usuário no GitHub. Este comando irá baixar todos os arquivos do template para sua máquina e navegar para o diretório do projeto.
+    ```bash
+    poetry install
+    ```
+    Este comando criará um ambiente virtual e instalará todas as dependências listadas no `pyproject.toml`.
 
-### Instalando Dependências
+3.  **Configure as Variáveis de Ambiente:**
+    Copie o arquivo de exemplo e ajuste as variáveis conforme necessário.
 
-Com o Poetry já instalado em seu sistema, a instalação das dependências do projeto é extremamente simples. No diretório raiz do projeto, execute:
+    ```bash
+    cp .env.example .env
+    # Edite o arquivo .env com suas configurações (SECRET_KEY, DEBUG, etc.)
+    ```
 
-```bash
-poetry install
-```
+4.  **Aplique as Migrações Iniciais:**
+    Crie as tabelas essenciais do Django no banco de dados.
 
-Este comando criará um ambiente virtual e instalará todas as dependências listadas no arquivo `pyproject.toml`. O Poetry gerencia automaticamente o ambiente virtual, então você não precisa se preocupar em ativá-lo manualmente.
+    ```bash
+    poetry run python src/manage.py migrate
+    ```
 
-### Configurando Variáveis de Ambiente
+5.  **Crie um Superusuário (Opcional):**
+    Necessário para acessar a interface de administração do Django (`/admin/`).
 
-O template utiliza variáveis de ambiente para configurações sensíveis. Um arquivo de exemplo `.env.example` está incluído no repositório. Você deve criar seu próprio arquivo `.env` baseado neste exemplo:
+    ```bash
+    poetry run python src/manage.py createsuperuser
+    ```
+    Siga as instruções no terminal para definir nome de usuário, email e senha.
 
-```bash
-cp .env.example .env
-```
+6.  **Inicie o Servidor de Desenvolvimento:**
 
-Abra o arquivo `.env` em seu editor de texto preferido e ajuste as variáveis conforme necessário para seu projeto.
+    ```bash
+    poetry run python src/manage.py runserver
+    ```
 
-### Executando Migrações
+    Acesse `http://127.0.0.1:8000/` no seu navegador. Você deverá ver a página inicial de exemplo.
 
-Antes de iniciar o servidor, é necessário aplicar as migrações iniciais do Django. Execute o seguinte comando:
-
-```bash
-poetry run python src/manage.py migrate
-```
-
-Este comando aplicará todas as migrações pendentes, criando as tabelas necessárias no banco de dados.
-
-### Iniciando o Servidor de Desenvolvimento
-
-Agora você está pronto para iniciar o servidor de desenvolvimento do Django:
-
-```bash
-poetry run python src/manage.py runserver
-```
-
-O servidor será iniciado e estará acessível em `http://localhost:8000/`. Para verificar se tudo está funcionando corretamente, acesse a rota de teste em `http://localhost:8000/hello/`. Você deverá ver a mensagem "Hello, World!" na tela.
-
-## 📁 Estrutura do Projeto
-
-A estrutura de diretórios deste template foi cuidadosamente planejada para promover organização e seguir as melhores práticas de desenvolvimento Django. Abaixo está uma visão geral da estrutura:
+## 📁 Estrutura de Diretórios
 
 ```
-src/
-  config/        # Projeto Django (settings.py, urls.py etc)
-  core/          # App exemplo
-    views.py     # Inclui view de teste (Hello World)
-    urls.py      # Inclui rota /hello/
-    templates/
-      core/
-        example.html
-tests/           # Testes globais (opcional)
-.vscode/         # Configuração de debug do VS Code
-.env.example     # Exemplo de variáveis de ambiente
-.gitignore
-README.md
-pyproject.toml
-poetry.lock
+.                           # Raiz do Projeto
+├── .venv/                  # Ambiente virtual (gerenciado pelo Poetry)
+├── .vscode/                # Configurações do VS Code (ex: launch.json)
+├── base_static/
+│   └── global/             # Arquivos estáticos globais (CSS, JS, Imagens)
+│       └── css/
+│           └── global-style.css
+├── base_templates/
+│   └── global/             # Templates globais (ex: base.html)
+│       └── base.html
+├── src/                    # Diretório principal do código fonte
+│   ├── core/               # App Django de exemplo
+│   │   ├── migrations/
+│   │   ├── static/
+│   │   │   └── core/
+│   │   │       └── css/
+│   │   │           └── styles.css # CSS específico do app core
+│   │   ├── templates/
+│   │   │   └── core/
+│   │   │       ├── pages/
+│   │   │       │   └── home.html  # Template da página inicial
+│   │   │       └── partials/      # Partials do app core (opcional)
+│   │   ├── admin.py
+│   │   ├── apps.py
+│   │   ├── models.py
+│   │   ├── tests.py
+│   │   ├── urls.py
+│   │   └── views.py
+│   ├── project/            # Projeto Django (configurações)
+│   │   ├── __init__.py
+│   │   ├── asgi.py
+│   │   ├── settings.py     # Arquivo principal de configurações
+│   │   ├── urls.py         # URLs principais do projeto
+│   │   └── wsgi.py
+│   └── manage.py           # Utilitário de linha de comando do Django
+├── tests/                  # Testes (configuração inicial)
+├── .env.example            # Exemplo de arquivo de variáveis de ambiente
+├── .gitignore              # Arquivos ignorados pelo Git
+├── db.sqlite3              # Banco de dados SQLite (padrão)
+├── poetry.lock             # Arquivo de lock do Poetry
+├── pyproject.toml          # Arquivo de configuração do Poetry e do projeto
+└── README.md               # Este arquivo
 ```
 
-O diretório `src/` contém todo o código fonte do projeto, com o projeto Django principal na pasta `config/` e um app de exemplo na pasta `core/`. A pasta `tests/` é destinada a testes globais que abrangem múltiplos apps. Os arquivos de configuração do Poetry (`pyproject.toml` e `poetry.lock`) estão na raiz do projeto, junto com arquivos de configuração do VS Code e do Git.
+## 🔄 Próximos Passos e Personalização
 
-## 🔄 O Que Fazer ao Criar um Novo Projeto
+Ao usar este template para um novo projeto:
 
-Ao utilizar este template como base para um novo projeto, recomendamos seguir estes passos para personalização:
+1.  **Renomeie o Projeto/Apps (Opcional):** Se desejar, renomeie o diretório do projeto (`src/project`) e o app `core`. Lembre-se de atualizar as referências em `settings.py`, `wsgi.py`, `asgi.py`, `manage.py` e nos `INSTALLED_APPS`.
+2.  **Crie Novos Apps:** Use `poetry run python src/manage.py startapp nome_do_app` dentro de `src/` e adicione o novo app aos `INSTALLED_APPS`.
+3.  **Atualize `.env`:** Defina as variáveis de ambiente específicas do seu projeto.
+4.  **Desenvolva seus Modelos:** Crie seus modelos no `models.py` dos seus apps.
+5.  **Crie Migrações:** Rode `poetry run python src/manage.py makemigrations` após criar ou alterar modelos.
+6.  **Aplique Migrações:** Rode `poetry run python src/manage.py migrate` para atualizar o banco de dados.
+7.  **Desenvolva suas Views, Templates e URLs.**
+8.  **Atualize este README.md:** Descreva seu projeto, instruções específicas, etc.
 
-### Renomeando o Projeto
+## 💡 Possíveis Melhorias Futuras para o Boilerplate
 
-Se desejar, você pode renomear o diretório do projeto Django em `src/config/` para o nome do seu novo projeto. Lembre-se de atualizar todas as referências a este nome em arquivos como `settings.py`, `wsgi.py`, `asgi.py` e outros.
+Este template pode ser estendido com:
 
-### Criando Novos Apps
-
-Você pode criar novos apps conforme necessário para seu projeto. Para manter a estrutura organizada, recomendamos criar os apps dentro do diretório `src/`:
-
-```bash
-cd src
-poetry run python manage.py startapp nome_do_app
-```
-
-Lembre-se de adicionar o novo app à lista `INSTALLED_APPS` no arquivo `settings.py`.
-
-### Atualizando Variáveis de Ambiente
-
-Revise e atualize o arquivo `.env` com as variáveis específicas do seu projeto, como credenciais de banco de dados, chaves secretas e configurações de serviços externos.
-
-### Removendo o Exemplo Hello World
-
-O template inclui uma view de exemplo (Hello World) para demonstração. Quando estiver pronto para desenvolver seu próprio projeto, você pode remover ou modificar esta view e suas rotas associadas.
-
-### Atualizando o README
-
-Não se esqueça de atualizar este README.md para refletir as especificidades do seu novo projeto, incluindo descrição, instruções de instalação e uso, e outras informações relevantes.
-
-## 🧩 Recursos Inclusos
-
-Este template Django inclui diversos recursos que facilitam o início rápido de novos projetos:
-
-### Estrutura `/src`
-
-A estrutura de código fonte dentro da pasta `/src` evita imports acidentais e facilita o deploy, seguindo as recomendações da PyPA (Python Packaging Authority). Esta organização proporciona uma clara separação entre código da aplicação e arquivos de configuração.
-
-### Configuração com Poetry
-
-O Poetry oferece um gerenciamento de dependências moderno e eficiente, com resolução de dependências determinística e ambientes virtuais isolados. O arquivo `pyproject.toml` já está configurado com as dependências básicas para um projeto Django.
-
-### App Core com Exemplo
-
-Um app core já está criado e configurado, incluindo uma view de exemplo e uma rota para demonstração. Isto permite verificar rapidamente se o ambiente está funcionando corretamente.
-
-### Templates HTML
-
-O template inclui um exemplo básico de template HTML, demonstrando a estrutura de diretórios recomendada para templates em projetos Django.
-
-### Debug pelo VS Code
-
-Configurações prontas para debug no VS Code estão incluídas no diretório `.vscode/`, permitindo depurar seu código Django diretamente do editor com breakpoints e inspeção de variáveis.
-
-### Variáveis de Ambiente
-
-Um arquivo `.env.example` está incluído para demonstrar como configurar variáveis de ambiente para seu projeto, seguindo as melhores práticas de segurança para informações sensíveis.
-
-### Gitignore Completo
-
-O arquivo `.gitignore` já está configurado para Python, VS Code e Django, garantindo que arquivos temporários, caches, ambientes virtuais e outros arquivos desnecessários não sejam incluídos no controle de versão.
-
-## 📚 Referências
-
-Para aprofundar seus conhecimentos sobre as tecnologias e práticas utilizadas neste template, recomendamos consultar as seguintes referências:
-
-### Documentação Django
-
-A documentação oficial do Django é um recurso valioso para aprender sobre o framework e suas funcionalidades. Visite [https://docs.djangoproject.com/](https://docs.djangoproject.com/) para acessar a documentação completa.
-
-### Documentação Poetry
-
-Para entender melhor como utilizar o Poetry para gerenciamento de dependências, consulte a documentação oficial em [https://python-poetry.org/docs/](https://python-poetry.org/docs/).
-
-### Boas Práticas com src layout
-
-A estrutura `/src` segue as recomendações da PyPA (Python Packaging Authority) para organização de projetos Python. Saiba mais em [https://packaging.python.org/en/latest/tutorials/packaging-projects/](https://packaging.python.org/en/latest/tutorials/packaging-projects/).
+*   **Autenticação Completa:** Usar `django-allauth` para login/registro/recuperação de senha.
+*   **Testes:** Configurar `pytest-django` e adicionar exemplos de testes.
+*   **Qualidade de Código:** Integrar `Ruff`, `Black`, `isort`.
+*   **Docker:** Adicionar `Dockerfile` e `docker-compose.yml`.
+*   **CI/CD:** Configurar GitHub Actions ou similar.
+*   **Páginas de Erro:** Templates personalizados para 404 e 500.
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a licença MIT - veja o arquivo LICENSE para detalhes.
+Este projeto é licenciado sob a Licença MIT. Veja o arquivo `LICENSE` (se existir) para mais detalhes.
 
----
-
-⭐ Se este template foi útil para você, considere dar uma estrela no repositório!
-
-**Eliézer Rodrigues**
-
-GitHub: [ezerodrigues](https://github.com/ezerodrigues)
